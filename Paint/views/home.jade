@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+html(lang="en")
+head
+	meta(charset="UTF-8")
+	title Bienvenido
+	script(src="https://code.jquery.com/jquery-1.11.3.min.js")
+	script(src="/socket.io/socket.io.js")
+	script(src="/static/javascript/paint.js")
+	style.
+		body{
+			background: #eee;
+		}
+		h1{
+			text-align:center;
+		}
+		#pizarra{
+			margin:0 auto;
+			width:500px;
+			height:500px;
+			background:#fff;
+		}
+
+body(onload="createCanvas()")
+	h1 #{message}
+	h3
+		|Contador en:
+		span.count
+	#pizarra
+	

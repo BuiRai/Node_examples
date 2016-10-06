@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+html(lang="en")
+head
+	meta(charset="UTF-8")
+	title Shared images!
+	script(src="//code.jquery.com/jquery-1.11.3.min.js")
+	script(src="/socket.io/socket.io.js")
+	style.
+		.messages{
+			background: #ddd;
+			border: 1px solid #333;
+			padding: .5em .1em;
+			min-height: 300px;
+			margin-bottom: 20px;
+		}
+		img{
+			height: 200px;
+		}
+	script.
+		var socket = io();
+		socket.on("addImage", function(msg, imageBase64){
+			$(".messages").append(
+				$("<p>").append($("<b>").text(msg), "<a target='_blank' href='" + imageBase64 + "'><img src='" + imageBase64 + "'></a>"
+				)
+			);
+		});
+
+		$(function(){
+			$("#imageFIle").on("change", function(e){
+				var file = e.originalEvent.target.files[0];
+				var reader = new FileReader();
+				reader.onload = function(evt){
+					//Send the image
+					socket.emit("user image", evt.target.result);
+				}
+				reader.readAsDataURL(file);
+			});
+		});
+body
+	div.messages
+	input(type="text")#message
+	input(type="file")#imageFIle
+	button(type="button")#send Send file
